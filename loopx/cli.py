@@ -51,6 +51,7 @@ from .cli_commands import (
     handle_history_command,
     handle_lark_inbox_command,
     handle_lark_kanban_command,
+    handle_lark_meeting_prep_command,
     handle_ml_experiment_command,
     handle_multi_agent_command,
     handle_preset_command,
@@ -86,6 +87,7 @@ from .cli_commands import (
     register_lark_inbox_commands,
     build_lark_issue_fix_reviewer_provider_hooks,
     register_lark_kanban_commands,
+    register_lark_meeting_prep_commands,
     register_ml_experiment_commands,
     register_multi_agent_commands,
     register_preset_commands,
@@ -230,6 +232,7 @@ def main(argv: list[str] | None = None) -> int:
     register_project_lifecycle_commands(sub, add_subcommand_format)
     register_lark_inbox_commands(sub, add_subcommand_format)
     register_lark_kanban_commands(sub, add_subcommand_format)
+    register_lark_meeting_prep_commands(sub, add_subcommand_format)
 
     register_status_commands(sub, add_subcommand_format)
     register_summary_all_command(sub, add_subcommand_format)
@@ -526,6 +529,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     if lark_kanban_result is not None:
         return lark_kanban_result
+
+    lark_meeting_prep_result = handle_lark_meeting_prep_command(
+        args,
+        registry_path=registry_path,
+        runtime_root_arg=args.runtime_root,
+        print_payload=print_payload,
+        output_format=output_format,
+    )
+    if lark_meeting_prep_result is not None:
+        return lark_meeting_prep_result
 
     lark_inbox_result = handle_lark_inbox_command(
         args,

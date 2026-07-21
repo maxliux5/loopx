@@ -116,6 +116,7 @@ with tempfile.TemporaryDirectory(prefix="loopx-lark-extension-") as raw_temp:
         "lark-extension-fixture",
     )
     kanban_schema_args = ("lark-kanban", "schema")
+    meeting_plan_args = ("lark-meeting-prep", "plan", "--date", "2026-07-22")
     explore_schema_args = ("explore", "schema")
     quota_args = (
         "quota",
@@ -145,6 +146,13 @@ with tempfile.TemporaryDirectory(prefix="loopx-lark-extension-") as raw_temp:
         expected_returncode=1,
     )
     assert "not installed" in str(kanban_missing["error"]), kanban_missing
+    meeting_missing = run_cli(
+        registry,
+        runtime_root,
+        *meeting_plan_args,
+        expected_returncode=1,
+    )
+    assert "not installed" in str(meeting_missing["error"]), meeting_missing
     explore_missing = run_cli(
         registry,
         runtime_root,
@@ -173,7 +181,7 @@ with tempfile.TemporaryDirectory(prefix="loopx-lark-extension-") as raw_temp:
     assert active["extension_activation"] == {
         "schema_version": "loopx_extension_activation_v0",
         "extension_id": "loopx-lark",
-        "provider_version": "1.4.0",
+        "provider_version": "1.5.0",
         "revision": installed["revision"],
         "enabled": True,
         "doctor_verified": True,
@@ -195,6 +203,11 @@ with tempfile.TemporaryDirectory(prefix="loopx-lark-extension-") as raw_temp:
         **active["extension_activation"],
         "required_permissions": ["lark.projection_sink.use"],
     }, kanban_active
+    meeting_active = run_cli(registry, runtime_root, *meeting_plan_args)
+    assert meeting_active["extension_activation"] == {
+        **active["extension_activation"],
+        "required_permissions": ["lark.meeting_prep.read"],
+    }, meeting_active
     explore_active = run_cli(registry, runtime_root, *explore_schema_args)
     assert explore_active["extension_activation"] == {
         **active["extension_activation"],
@@ -239,6 +252,13 @@ with tempfile.TemporaryDirectory(prefix="loopx-lark-extension-") as raw_temp:
         expected_returncode=1,
     )
     assert "is disabled" in str(kanban_blocked["error"]), kanban_blocked
+    meeting_blocked = run_cli(
+        registry,
+        runtime_root,
+        *meeting_plan_args,
+        expected_returncode=1,
+    )
+    assert "is disabled" in str(meeting_blocked["error"]), meeting_blocked
     explore_blocked = run_cli(
         registry,
         runtime_root,
@@ -264,11 +284,11 @@ with tempfile.TemporaryDirectory(prefix="loopx-lark-extension-") as raw_temp:
     assert enabled["doctor"]["verified"] is True, enabled
 
     bundled_manifest = ROOT / "loopx" / "extensions" / "lark" / "extension.toml"
-    upgraded_manifest = temp / "loopx-lark-v1.5.toml"
+    upgraded_manifest = temp / "loopx-lark-v1.6.toml"
     upgraded_manifest.write_text(
         bundled_manifest.read_text(encoding="utf-8").replace(
-            'version = "1.4.0"',
             'version = "1.5.0"',
+            'version = "1.6.0"',
             1,
         ),
         encoding="utf-8",

@@ -1,6 +1,6 @@
 schema_version = "loopx_extension_manifest_v0"
 id = "loopx-lark"
-version = "1.4.0"
+version = "1.5.0"
 requires_loopx_api = ">=1,<2"
 permissions = [
   "lark.inbox.read",
@@ -10,6 +10,7 @@ permissions = [
   "lark.reviewer_notification.send",
   "lark.projection_sink.use",
   "lark.miaoda_html.publish",
+  "lark.meeting_prep.read",
 ]
 
 [runtime]
@@ -19,6 +20,17 @@ args = []
 doctor_args = ["--doctor"]
 required_permissions = []
 timeout_seconds = 30
+
+[[provides]]
+id = "lark-meeting-preparation"
+kind = "meeting_preparation_source"
+title = "Lark meeting preparation"
+status = "active-preview"
+visibility = "public"
+real_world_anchor = "user-authorized calendar events with explicitly bounded related Lark sources"
+user_value = "Prepare an owner-private meeting packet and a bounded LoopX todo projection from calendar, notes, documents, and selected chats."
+entry_command = "loopx lark-meeting-prep plan"
+next_real_step = "Review the source plan, then execute preparation with user-authenticated lark-cli reads."
 
 [[provides]]
 id = "lark-event-inbox"

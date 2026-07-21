@@ -97,6 +97,10 @@ from .lark_inbox import (
     register_lark_inbox_commands,
 )
 from .lark_kanban import handle_lark_kanban_command, register_lark_kanban_commands
+from .lark_meeting_prep import (
+    handle_lark_meeting_prep_command,
+    register_lark_meeting_prep_commands,
+)
 from .ml_experiment import handle_ml_experiment_command, register_ml_experiment_commands
 from .multi_agent import handle_multi_agent_command, register_multi_agent_commands
 from .project_lifecycle import (
@@ -183,6 +187,7 @@ from .version import handle_version_command, register_version_command
 from .worker_bridge import handle_worker_bridge_command, register_worker_bridge_commands
 
 __all__ = [
+    "build_lark_issue_fix_reviewer_provider_hooks",
     "handle_agents_last_exam_command",
     "handle_agents_last_exam_baked_input_command",
     "handle_agents_last_exam_host_codex_command",
@@ -232,6 +237,7 @@ __all__ = [
     "handle_history_command",
     "handle_lark_inbox_command",
     "handle_lark_kanban_command",
+    "handle_lark_meeting_prep_command",
     "handle_ml_experiment_command",
     "handle_multi_agent_command",
     "handle_new_project_prompt_command",
@@ -289,6 +295,7 @@ __all__ = [
     "register_history_command",
     "register_lark_inbox_commands",
     "register_lark_kanban_commands",
+    "register_lark_meeting_prep_commands",
     "register_ml_experiment_commands",
     "register_multi_agent_commands",
     "register_project_lifecycle_commands",

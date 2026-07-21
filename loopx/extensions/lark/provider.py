@@ -7,6 +7,10 @@ from collections.abc import Sequence
 
 
 REQUIRED_EXPORTS = {
+    "loopx.extensions.lark.meeting_prep": (
+        "build_lark_meeting_prep_plan",
+        "prepare_lark_meetings",
+    ),
     "loopx.extensions.lark.event_collector": (
         "inspect_lark_event_collector",
         "install_lark_event_collector",
