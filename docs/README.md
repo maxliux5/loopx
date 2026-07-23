@@ -17,6 +17,9 @@ incident report, or launch draft.
 - [Newcomer command path](guides/newcomer-command-path.md): the minimal product
   path for `/loopx`, `/loopx <goal>`, and one CLI quickstart before the full
   command catalog.
+- [Long-running task design (简体中文)](guides/long-running-task-design.zh-CN.md):
+  a plain-language guide to goals, visions, bounded Turns, evidence,
+  continuation, replanning, gates, quota, and multi-agent isolation.
 - [Auto-research command path](guides/auto-research-command-path.md): the
   shortest visible route from a clean workspace to an inspectable multi-agent
   auto-research rehearsal with stop and takeover controls.
@@ -99,6 +102,7 @@ incident report, or launch draft.
 
 - [Getting started](guides/getting-started.md)
 - [Newcomer command path](guides/newcomer-command-path.md)
+- [Long-running task design (简体中文)](guides/long-running-task-design.zh-CN.md)
 - [Auto-research command path](guides/auto-research-command-path.md)
 - [Multi-agent product recipe](guides/multi-agent-product-recipe.md)
 - [Integration guide](integration.md)
